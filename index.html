@@ -46,7 +46,7 @@
         </div>
         <div>
           <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">Facebook ကံစမ်းမဲ (1–100)</h1>
-          <p class="text-xs text-slate-500">Live • စုစုပေါင်းဆုကြေး 100,000 Ks</p>
+          <p class="text-xs text-slate-500">Live • ကံစမ်းမဲအစီအစဉ်</p>
         </div>
       </div>
 
@@ -86,7 +86,7 @@
           </div>
           <h2 class="text-xl sm:text-2xl font-bold text-slate-900">ကံစမ်းမဲနှိုက်ရန် သင့် Facebook Account Name ထည့်ပါ</h2>
           <p class="text-sm text-slate-600">
-            နံပါတ် 1 မှ 100 အတွင်း ကြိုက်နှစ်သက်ရာ Box ၁ ခုကို ရွေးချယ်ဖွင့်နိုင်ပါသည်။ (1,000 Ks မှ ပထမဆု 10,000 Ks အထိ ဆုမဲ ၄၅ ခုနှင့် ဗလာ ၅၅ ခု ပါဝင်ပါသည်)
+            နံပါတ် 1 မှ 100 အတွင်း ကြိုက်နှစ်သက်ရာ Box ၁ ခုကို ရွေးချယ်ဖွင့်နိုင်ပါသည်။
           </p>
 
           <form id="login-form" class="flex flex-col sm:flex-row gap-2.5 pt-1">
@@ -129,10 +129,7 @@
             <span class="text-slate-500">ဖွင့်ပြီး Box:</span>
             <span id="stat-opened-boxes" class="font-bold text-slate-900 ml-1">0 / 100</span>
           </div>
-          <div class="bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-xl">
-            <span class="text-amber-700">ကျန်ရှိဆုကြေး:</span>
-            <span id="stat-remaining-pool" class="font-bold text-amber-900 ml-1">100,000 Ks</span>
-          </div>
+
         </div>
       </div>
 
@@ -248,10 +245,21 @@
   <!-- Reset Confirmation Modal -->
   <div id="reset-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl animate-pop space-y-4">
-      <h3 class="text-lg font-bold text-slate-900">မဲအသစ် ပြန်စမလား?</h3>
+      <h3 class="text-lg font-bold text-slate-900">🔒 Admin Reset — မဲအသစ် ပြန်စမလား?</h3>
       <p class="text-sm text-slate-600">
         Google Sheet ထဲရှိ လက်ရှိ Box များနှင့် Data Backup မှတ်တမ်းအားလုံးကို ဖျက်ပြီး 100,000 Ks ဆုမဲအသစ်များကို ကျပန်းပြန်လည်ဖြည့်သွင်းပါမည်။
       </p>
+      <div class="space-y-1.5">
+        <label for="reset-password-input" class="block text-xs font-semibold text-slate-700">Admin Password ရိုက်ထည့်ပါ</label>
+        <input
+          id="reset-password-input"
+          type="password"
+          inputmode="numeric"
+          placeholder="Password ထည့်ပါ..."
+          class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
+        />
+        <p id="reset-pw-error" class="hidden text-xs font-semibold text-rose-600">Password မှားနေပါသည်</p>
+      </div>
       <div class="flex justify-end gap-2">
         <button id="btn-cancel-reset" type="button" class="px-4 py-2 rounded-xl border border-slate-300 text-sm font-semibold text-slate-700 hover:bg-slate-50">
           မလုပ်တော့ပါ
@@ -344,7 +352,7 @@
       const statusBadge = document.getElementById('status-badge');
       const statusInstruction = document.getElementById('status-instruction');
       const statOpenedBoxes = document.getElementById('stat-opened-boxes');
-      const statRemainingPool = document.getElementById('stat-remaining-pool');
+      const statRemainingPool = null;
       const syncStatusPill = document.getElementById('sync-status-pill');
 
       const boxesGrid = document.getElementById('boxes-grid');
@@ -370,7 +378,10 @@
       const modalSubtitle = document.getElementById('modal-subtitle');
       const btnCloseResult = document.getElementById('btn-close-result');
 
+      const ADMIN_RESET_PW = '210494';
       const resetModal = document.getElementById('reset-modal');
+      const resetPasswordInput = document.getElementById('reset-password-input');
+      const resetPwError = document.getElementById('reset-pw-error');
       const btnCancelReset = document.getElementById('btn-cancel-reset');
       const btnConfirmReset = document.getElementById('btn-confirm-reset');
 
@@ -572,7 +583,7 @@
 
         backupCountBadge.textContent = state.logs.length;
         statOpenedBoxes.textContent = `${openedCount} / ${TOTAL_BOXES}`;
-        statRemainingPool.textContent = formatKs(remainingPool);
+        if (statRemainingPool) statRemainingPool.textContent = formatKs(remainingPool);
 
         const userBox = getUserOpenedBox();
 
@@ -733,7 +744,10 @@
       });
 
       btnOpenResetModal.addEventListener('click', () => {
+        resetPasswordInput.value = '';
+        resetPwError.classList.add('hidden');
         resetModal.classList.remove('hidden');
+        setTimeout(() => resetPasswordInput.focus(), 50);
       });
 
       btnCancelReset.addEventListener('click', () => {
@@ -741,6 +755,12 @@
       });
 
       btnConfirmReset.addEventListener('click', async () => {
+        if (resetPasswordInput.value.trim() !== ADMIN_RESET_PW) {
+          resetPwError.classList.remove('hidden');
+          resetPasswordInput.focus();
+          return;
+        }
+        resetPwError.classList.add('hidden');
         syncStatusPill.classList.remove('hidden');
         try {
           await fetch(APPS_SCRIPT_URL, {
