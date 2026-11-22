@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Facebook ကံစမ်းမဲ (1–100)</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Myanmar:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Noto Sans Myanmar', 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: #f0f2f5;
+      color: #1c1e21;
+    }
+    .box-card {
+      transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+    }
+    .box-card:not(:disabled):hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 18px -4px rgba(24, 119, 242, 0.28);
+    }
+    .box-card:not(:disabled):active {
+      transform: scale(0.97);
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.82); opacity: 0; }
+      70% { transform: scale(1.04); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-pop {
+      animation: popIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Top Navbar -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-full bg-[#1877F2] flex items-center justify-center text-white font-bold shadow-sm">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">Facebook ကံစမ်းမဲ (1–100)</h1>
+          <p class="text-xs text-slate-500">Live • စုစုပေါင်းဆုကြေး 100,000 Ks</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs + Account Pill -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <nav id="admin-nav" class="hidden flex bg-slate-100 p-1 rounded-lg" aria-label="Views">
+          <button id="tab-draw" type="button" class="px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-md bg-white text-[#1877F2] shadow-sm transition">
+            🎁 မဲနှိုက်မည်
+          </button>
+          <button id="tab-backup" type="button" class="px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-md text-slate-600 hover:text-slate-900 transition">
+            📊 Data Backup (<span id="backup-count-badge">0</span>)
+          </button>
+        </nav>
+
+        <div id="header-user-pill" class="hidden items-center gap-2 bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-full">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span id="header-user-name" class="text-xs font-semibold text-blue-900 max-w-[140px] truncate"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-5 space-y-5">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="hidden fixed bottom-5 right-5 z-50 bg-slate-900 text-white text-sm font-medium px-4 py-2.5 rounded-xl shadow-lg max-w-sm"></div>
+
+    <!-- VIEW 1: LUCKY DRAW -->
+    <section id="view-draw" class="space-y-5">
+
+      <!-- Facebook Name Entry Gate -->
+      <div id="login-card" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6">
+        <div class="max-w-xl mx-auto text-center space-y-4">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-[#1877F2] text-xs font-semibold">
+            🔒 တစ်ဦးလျှင် ၁ ကြိမ်သာ ဖွင့်ခွင့်ရှိသည်
+          </div>
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900">ကံစမ်းမဲနှိုက်ရန် သင့် Facebook Account Name ထည့်ပါ</h2>
+          <p class="text-sm text-slate-600">
+            နံပါတ် 1 မှ 100 အတွင်း ကြိုက်နှစ်သက်ရာ Box ၁ ခုကို ရွေးချယ်ဖွင့်နိုင်ပါသည်။ (1,000 Ks မှ ပထမဆု 10,000 Ks အထိ ဆုမဲ ၄၅ ခုနှင့် ဗလာ ၅၅ ခု ပါဝင်ပါသည်)
+          </p>
+
+          <form id="login-form" class="flex flex-col sm:flex-row gap-2.5 pt-1">
+            <input
+              id="fb-name-input"
+              type="text"
+              required
+              minlength="2"
+              maxlength="50"
+              placeholder="သင်၏ Facebook Account Name အမှန်ကို ရိုက်ထည့်ပါ..."
+              class="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:border-transparent"
+            />
+            <button
+              type="submit"
+              class="px-6 py-2.5 rounded-xl bg-[#1877F2] hover:bg-[#166fe5] text-white font-semibold text-sm shadow-sm transition flex items-center justify-center gap-2 whitespace-nowrap"
+            >
+              <span>ဝင်ရောက်မည်</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Logged-in Status Strip -->
+      <div id="user-status-bar" class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#1877F2] to-blue-700 text-white flex items-center justify-center font-bold text-base" id="user-avatar-initial">
+            U
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-slate-900 text-sm sm:text-base" id="status-user-name"></span>
+              <span id="status-badge" class="px-2 py-0.5 rounded-full text-xs font-semibold"></span>
+            </div>
+            <p id="status-instruction" class="text-xs sm:text-sm text-slate-600 mt-0.5"></p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 text-xs sm:text-sm">
+          <div class="bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-xl">
+            <span class="text-slate-500">ဖွင့်ပြီး Box:</span>
+            <span id="stat-opened-boxes" class="font-bold text-slate-900 ml-1">0 / 100</span>
+          </div>
+          <div class="bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-xl">
+            <span class="text-amber-700">ကျန်ရှိဆုကြေး:</span>
+            <span id="stat-remaining-pool" class="font-bold text-amber-900 ml-1">100,000 Ks</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 100 Boxes Grid -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-6">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div class="flex items-center gap-2">
+            <h3 class="text-sm sm:text-base font-bold text-slate-800">🎁 နံပါတ် 1 မှ 100 အထိ Box များ</h3>
+            <span id="sync-status-pill" class="hidden text-xs px-2 py-0.5 rounded-full bg-blue-50 text-[#1877F2] font-medium">Syncing...</span>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-slate-500">
+            <span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded bg-[#1877F2] inline-block"></span> မဖွင့်ရသေး</span>
+            <span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded bg-emerald-500 inline-block"></span> ဆုပေါက်ပြီး</span>
+            <span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded bg-slate-200 inline-block"></span> ဗလာ</span>
+          </div>
+        </div>
+
+        <div id="boxes-grid" class="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 gap-2 sm:gap-2.5">
+          <!-- 100 boxes rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: DATA BACKUP / ADMIN -->
+    <section id="view-backup" class="hidden space-y-5">
+      <!-- KPI Summary -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+          <p class="text-xs text-slate-500 font-medium">စုစုပေါင်း Budget</p>
+          <p class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">100,000 Ks</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+          <p class="text-xs text-slate-500 font-medium">ပေါက်သွားပြီးစုစုပေါင်း</p>
+          <p id="kpi-won-total" class="text-xl sm:text-2xl font-extrabold text-emerald-600 mt-1">0 Ks</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+          <p class="text-xs text-slate-500 font-medium">ဝင်ရောက်ကံစမ်းသူ</p>
+          <p id="kpi-participants" class="text-xl sm:text-2xl font-extrabold text-[#1877F2] mt-1">0 ဦး</p>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+          <p class="text-xs text-slate-500 font-medium">ဆုပေါက်သူ / ဗလာ</p>
+          <p id="kpi-win-blank" class="text-xl sm:text-2xl font-extrabold text-slate-800 mt-1">0 / 0</p>
+        </div>
+      </div>
+
+      <!-- Data Backup Table -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">📋 Data Backup မှတ်တမ်း (Google Sheets)</h2>
+            <p class="text-xs text-slate-500">ဝင်ရောက်ကံစမ်းသူ၏ Facebook Account Name နှင့် ပေါက်သွားသော Amount စာရင်း</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button id="btn-refresh-data" type="button" class="px-3 py-2 rounded-xl border border-blue-200 bg-blue-50 hover:bg-blue-100 text-xs font-semibold text-[#1877F2] transition">
+              🔄 Refresh Sheet
+            </button>
+            <button id="btn-copy-backup" type="button" class="px-3 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 transition">
+              📋 Copy Data
+            </button>
+            <button id="btn-export-csv" type="button" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition">
+              ⬇️ Export CSV
+            </button>
+            <button id="btn-open-reset-modal" type="button" class="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition">
+              🔄 Reset Game
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-600">
+                <th class="py-3 px-4">စဉ်</th>
+                <th class="py-3 px-4">Facebook Account Name</th>
+                <th class="py-3 px-4">Box နံပါတ်</th>
+                <th class="py-3 px-4">ပေါက်သွားသည့် Amount</th>
+                <th class="py-3 px-4">အချိန်</th>
+              </tr>
+            </thead>
+            <tbody id="backup-table-body" class="divide-y divide-slate-100 text-sm">
+              <!-- Rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Waiting / Loading Overlay -->
+  <div id="waiting-modal" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xs w-full p-6 text-center shadow-2xl animate-pop space-y-3">
+      <div class="w-12 h-12 mx-auto rounded-full border-4 border-blue-100 border-t-[#1877F2] animate-spin"></div>
+      <h3 id="waiting-title" class="text-base font-bold text-slate-900">ခဏစောင့်ပေးပါ...</h3>
+      <p id="waiting-subtitle" class="text-xs text-slate-500">သင့်ကံစမ်းမဲရလဒ်ကို ဖွင့်နေပါသည်</p>
+    </div>
+  </div>
+
+  <!-- Result Modal -->
+  <div id="result-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl animate-pop space-y-4">
+      <div id="modal-icon" class="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center text-3xl"></div>
+      <div class="space-y-1">
+        <p id="modal-box-label" class="text-xs font-semibold uppercase tracking-wider text-slate-400"></p>
+        <h3 id="modal-title" class="text-2xl font-extrabold text-slate-900"></h3>
+        <p id="modal-subtitle" class="text-sm text-slate-600"></p>
+      </div>
+      <button id="btn-close-result" type="button" class="w-full py-2.5 rounded-xl bg-[#1877F2] hover:bg-[#166fe5] text-white font-semibold text-sm transition">
+        အိုကေ (ပိတ်မည်)
+      </button>
+    </div>
+  </div>
+
+  <!-- Reset Confirmation Modal -->
+  <div id="reset-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl animate-pop space-y-4">
+      <h3 class="text-lg font-bold text-slate-900">မဲအသစ် ပြန်စမလား?</h3>
+      <p class="text-sm text-slate-600">
+        Google Sheet ထဲရှိ လက်ရှိ Box များနှင့် Data Backup မှတ်တမ်းအားလုံးကို ဖျက်ပြီး 100,000 Ks ဆုမဲအသစ်များကို ကျပန်းပြန်လည်ဖြည့်သွင်းပါမည်။
+      </p>
+      <div class="flex justify-end gap-2">
+        <button id="btn-cancel-reset" type="button" class="px-4 py-2 rounded-xl border border-slate-300 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+          မလုပ်တော့ပါ
+        </button>
+        <button id="btn-confirm-reset" type="button" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold">
+          Reset လုပ်မည်
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyaJTn_mc0X7fbamZUtSxOmAHmiVuOpf5N9AKxXv-Sxg7y-UUd3rnBCadpBB4mEI3m3/exec';
+      const DEVICE_LOCK_KEY = 'fb_lucky_draw_device_lock_v1';
+      const TOTAL_BOXES = 100;
+      const TOTAL_BUDGET = 100000;
+
+      function createInitialBoxes() {
+        return Array.from({ length: TOTAL_BOXES }, (_, idx) => ({
+          number: idx + 1,
+          amount: 0,
+          openedById: null,
+          openedBy: null,
+          openedAt: null
+        }));
+      }
+
+      function loadDeviceLock() {
+        try {
+          const raw = localStorage.getItem(DEVICE_LOCK_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function saveDeviceLock(lockObj) {
+        try {
+          if (lockObj) {
+            localStorage.setItem(DEVICE_LOCK_KEY, JSON.stringify(lockObj));
+          } else {
+            localStorage.removeItem(DEVICE_LOCK_KEY);
+          }
+        } catch (e) {
+          // Ignore storage errors
+        }
+      }
+
+      let state = {
+        currentUser: null, // { id, name }
+        deviceLock: loadDeviceLock(), // { fbId, fbName, boxNumber, amount }
+        boxes: createInitialBoxes(),
+        logs: []
+      };
+
+      // If device already played before, restore their user view immediately
+      if (state.deviceLock && state.deviceLock.fbName) {
+        state.currentUser = {
+          id: state.deviceLock.fbId,
+          name: state.deviceLock.fbName
+        };
+      }
+
+      let isBusy = false;
+      let toastTimer = null;
+
+      // DOM Elements
+      const isAdminMode = new URLSearchParams(window.location.search).get('admin') === '1';
+      const adminNav = document.getElementById('admin-nav');
+      if (isAdminMode && adminNav) {
+        adminNav.classList.remove('hidden');
+      }
+      const tabDraw = document.getElementById('tab-draw');
+      const tabBackup = document.getElementById('tab-backup');
+      const viewDraw = document.getElementById('view-draw');
+      const viewBackup = document.getElementById('view-backup');
+      const backupCountBadge = document.getElementById('backup-count-badge');
+
+      const headerUserPill = document.getElementById('header-user-pill');
+      const headerUserName = document.getElementById('header-user-name');
+
+      const loginCard = document.getElementById('login-card');
+      const loginForm = document.getElementById('login-form');
+      const fbNameInput = document.getElementById('fb-name-input');
+
+      const userStatusBar = document.getElementById('user-status-bar');
+      const userAvatarInitial = document.getElementById('user-avatar-initial');
+      const statusUserName = document.getElementById('status-user-name');
+      const statusBadge = document.getElementById('status-badge');
+      const statusInstruction = document.getElementById('status-instruction');
+      const statOpenedBoxes = document.getElementById('stat-opened-boxes');
+      const statRemainingPool = document.getElementById('stat-remaining-pool');
+      const syncStatusPill = document.getElementById('sync-status-pill');
+
+      const boxesGrid = document.getElementById('boxes-grid');
+
+      const kpiWonTotal = document.getElementById('kpi-won-total');
+      const kpiParticipants = document.getElementById('kpi-participants');
+      const kpiWinBlank = document.getElementById('kpi-win-blank');
+      const backupTableBody = document.getElementById('backup-table-body');
+
+      const btnRefreshData = document.getElementById('btn-refresh-data');
+      const btnCopyBackup = document.getElementById('btn-copy-backup');
+      const btnExportCsv = document.getElementById('btn-export-csv');
+      const btnOpenResetModal = document.getElementById('btn-open-reset-modal');
+
+      const waitingModal = document.getElementById('waiting-modal');
+      const waitingTitle = document.getElementById('waiting-title');
+      const waitingSubtitle = document.getElementById('waiting-subtitle');
+
+      const resultModal = document.getElementById('result-modal');
+      const modalIcon = document.getElementById('modal-icon');
+      const modalBoxLabel = document.getElementById('modal-box-label');
+      const modalTitle = document.getElementById('modal-title');
+      const modalSubtitle = document.getElementById('modal-subtitle');
+      const btnCloseResult = document.getElementById('btn-close-result');
+
+      const resetModal = document.getElementById('reset-modal');
+      const btnCancelReset = document.getElementById('btn-cancel-reset');
+      const btnConfirmReset = document.getElementById('btn-confirm-reset');
+
+      const toastEl = document.getElementById('toast');
+
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.remove('hidden');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toastEl.classList.add('hidden');
+        }, 3200);
+      }
+
+      function formatKs(num) {
+        return Number(num).toLocaleString('en-US') + ' Ks';
+      }
+
+      function normalizeKey(str) {
+        return String(str || '').trim().toLowerCase();
+      }
+
+      function getUserOpenedBox() {
+        if (!state.currentUser) return null;
+        const idNorm = normalizeKey(state.currentUser.id);
+        const nameNorm = normalizeKey(state.currentUser.name);
+        const foundInSheet = state.boxes.find(b =>
+          (b.openedById && normalizeKey(b.openedById) === idNorm) ||
+          (b.openedBy && normalizeKey(b.openedBy) === nameNorm)
+        );
+        if (foundInSheet) return foundInSheet;
+        if (state.deviceLock && state.deviceLock.boxNumber) {
+          return {
+            number: state.deviceLock.boxNumber,
+            amount: state.deviceLock.amount || 0,
+            openedBy: state.deviceLock.fbName
+          };
+        }
+        return null;
+      }
+
+      function switchTab(tab) {
+        if (tab === 'draw') {
+          viewDraw.classList.remove('hidden');
+          viewBackup.classList.add('hidden');
+          tabDraw.className = 'px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-md bg-white text-[#1877F2] shadow-sm transition';
+          tabBackup.className = 'px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-md text-slate-600 hover:text-slate-900 transition';
+        } else {
+          viewDraw.classList.add('hidden');
+          viewBackup.classList.remove('hidden');
+          tabBackup.className = 'px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-md bg-white text-[#1877F2] shadow-sm transition';
+          tabDraw.className = 'px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-md text-slate-600 hover:text-slate-900 transition';
+        }
+      }
+
+      async function syncFromSheet() {
+        syncStatusPill.classList.remove('hidden');
+        try {
+          const res = await fetch(APPS_SCRIPT_URL + '?action=getState&t=' + Date.now());
+          const data = await res.json();
+          if (data && data.ok && Array.isArray(data.boxes)) {
+            state.boxes = data.boxes;
+            state.logs = Array.isArray(data.logs) ? data.logs : [];
+            // If sheet was reset (0 logs), also clear local device lock so people can join the new round
+            if (state.logs.length === 0 && state.deviceLock) {
+              state.deviceLock = null;
+              state.currentUser = null;
+              saveDeviceLock(null);
+            }
+            render();
+          }
+        } catch (err) {
+          showToast('Google Sheet နှင့် ချိတ်ဆက်ရာတွင် အမှားရှိနေပါသည်');
+        } finally {
+          syncStatusPill.classList.add('hidden');
+        }
+      }
+
+      function handleLoginSubmit(e) {
+        e.preventDefault();
+        if (state.deviceLock) {
+          showToast(`ဤစက်ဖြင့် Box #${state.deviceLock.boxNumber} ကို ဖွင့်ပြီးသား ဖြစ်ပါသည်`);
+          return;
+        }
+        const cleanName = fbNameInput.value.trim();
+        if (!cleanName) return;
+
+        const normId = normalizeKey(cleanName);
+        state.currentUser = { id: normId, name: cleanName };
+        fbNameInput.value = '';
+        render();
+
+        const existing = getUserOpenedBox();
+        if (existing) {
+          showToast(`"${cleanName}" သည် Box #${existing.number} ကို ဖွင့်ပြီးသား ဖြစ်ပါသည်`);
+        } else {
+          showToast(`"${cleanName}" ဝင်ရောက်ပြီးပါပြီ — Box ၁ ခု ရွေးချယ်နှိပ်ပါ`);
+        }
+      }
+
+      async function openBox(boxNumber) {
+        if (isBusy) return;
+        if (!state.currentUser) {
+          showToast('ကျေးဇူးပြု၍ Facebook Account Name အရင်ရိုက်ထည့်ပါ');
+          fbNameInput.focus();
+          return;
+        }
+        const alreadyOpened = getUserOpenedBox();
+        if (alreadyOpened) {
+          showToast(`တစ်ဦးလျှင် ၁ ခုသာ ဖွင့်ခွင့်ရှိပါသည် (Box #${alreadyOpened.number} ကို ဖွင့်ပြီးပါပြီ)`);
+          return;
+        }
+
+        isBusy = true;
+        waitingTitle.textContent = `Box #${boxNumber} ကို ဖွင့်နေပါသည်...`;
+        waitingSubtitle.textContent = 'Waiting... ခဏစောင့်ပေးပါ';
+        waitingModal.classList.remove('hidden');
+        syncStatusPill.classList.remove('hidden');
+        try {
+          const res = await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({
+              action: 'openBox',
+              fbId: state.currentUser.id,
+              fbName: state.currentUser.name,
+              boxNumber: boxNumber
+            })
+          });
+          const data = await res.json();
+          if (data && data.ok && data.box) {
+            state.deviceLock = {
+              fbId: state.currentUser.id,
+              fbName: state.currentUser.name,
+              boxNumber: data.box.number,
+              amount: data.box.amount
+            };
+            saveDeviceLock(state.deviceLock);
+
+            // Update local state immediately for instant UI response
+            const idx = state.boxes.findIndex(b => b.number === data.box.number);
+            if (idx !== -1) state.boxes[idx] = data.box;
+            state.logs.unshift({
+              time: data.box.openedAt || '',
+              accountId: data.box.openedById,
+              accountName: data.box.openedBy,
+              boxNumber: data.box.number,
+              amount: data.box.amount
+            });
+
+            waitingModal.classList.add('hidden');
+            render();
+            showResultModal(data.box);
+
+            // Background sync without blocking the user
+            syncFromSheet();
+          } else {
+            waitingModal.classList.add('hidden');
+            if (data && data.error === 'Already played' && data.boxNumber) {
+              showToast(`"${state.currentUser.name}" သည် Box #${data.boxNumber} ကို ဖွင့်ပြီးသား ဖြစ်ပါသည်`);
+            } else {
+              showToast(data && data.error ? `မရပါ: ${data.error}` : 'Box ဖွင့်၍ မရပါ');
+            }
+            syncFromSheet();
+          }
+        } catch (err) {
+          waitingModal.classList.add('hidden');
+          showToast('Server ချိတ်ဆက်မှု အဆင်မပြေပါ — အင်တာနက်စစ်ဆေးပြီး ထပ်စမ်းပါ');
+        } finally {
+          isBusy = false;
+          syncStatusPill.classList.add('hidden');
+        }
+      }
+
+      function showResultModal(box) {
+        modalBoxLabel.textContent = `BOX #${box.number} • ${box.openedBy}`;
+        if (Number(box.amount) > 0) {
+          modalIcon.className = 'w-16 h-16 mx-auto rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl';
+          modalIcon.textContent = '🎉';
+          modalTitle.textContent = formatKs(box.amount);
+          modalTitle.className = 'text-3xl font-extrabold text-emerald-600';
+          modalSubtitle.textContent = 'ဂုဏ်ယူပါတယ်! သင် ဆုမဲပေါက်ပါသည်။';
+        } else {
+          modalIcon.className = 'w-16 h-16 mx-auto rounded-2xl bg-slate-100 text-slate-500 flex items-center justify-center text-3xl';
+          modalIcon.textContent = '😅';
+          modalTitle.textContent = 'ဗလာ';
+          modalTitle.className = 'text-2xl font-extrabold text-slate-700';
+          modalSubtitle.textContent = 'ကံမကောင်းသေးပါဘူး။ နောက်တစ်ကြိမ်မှ ပြန်လည်ကြိုးစားပါ!';
+        }
+        resultModal.classList.remove('hidden');
+      }
+
+      function render() {
+        const openedCount = state.boxes.filter(b => b.openedBy !== null).length;
+        const wonTotal = state.boxes.reduce((sum, b) => sum + (b.openedBy ? Number(b.amount) : 0), 0);
+        const remainingPool = Math.max(0, TOTAL_BUDGET - wonTotal);
+        const winCount = state.logs.filter(l => Number(l.amount) > 0).length;
+        const blankCount = state.logs.filter(l => Number(l.amount) === 0).length;
+
+        backupCountBadge.textContent = state.logs.length;
+        statOpenedBoxes.textContent = `${openedCount} / ${TOTAL_BOXES}`;
+        statRemainingPool.textContent = formatKs(remainingPool);
+
+        const userBox = getUserOpenedBox();
+
+        if (state.currentUser) {
+          headerUserPill.classList.remove('hidden');
+          headerUserPill.classList.add('flex');
+          headerUserName.textContent = state.currentUser.name;
+
+          loginCard.classList.add('hidden');
+          userStatusBar.classList.remove('hidden');
+
+          userAvatarInitial.textContent = state.currentUser.name.charAt(0).toUpperCase();
+          statusUserName.textContent = state.currentUser.name;
+
+          if (userBox) {
+            statusBadge.textContent = 'ဖွင့်ပြီးသား';
+            statusBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-100 text-amber-800';
+            const resText = Number(userBox.amount) > 0 ? `${formatKs(userBox.amount)} ပေါက်ထားပါသည်` : 'ဗလာ ကျထားပါသည်';
+            statusInstruction.textContent = `သင်သည် Box #${userBox.number} ကို ဖွင့်ပြီးဖြစ်သည် (${resText}) — ထပ်မံဖွင့်ခွင့်မရှိတော့ပါ။`;
+          } else {
+            statusBadge.textContent = 'ဖွင့်ခွင့်ရှိသည် (၁ ခု)';
+            statusBadge.className = 'px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800';
+            statusInstruction.textContent = 'အောက်ပါ နံပါတ် 1 မှ 100 အတွင်း မဖွင့်ရသေးသော Box ၁ ခုကို ရွေးချယ်နှိပ်ပါ။';
+          }
+        } else {
+          headerUserPill.classList.add('hidden');
+          headerUserPill.classList.remove('flex');
+          loginCard.classList.remove('hidden');
+          userStatusBar.classList.add('hidden');
+        }
+
+        // Render 100 Boxes
+        boxesGrid.innerHTML = '';
+        const canUserPick = Boolean(state.currentUser && !userBox);
+
+        state.boxes.forEach(box => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          const isMine = userBox && userBox.number === box.number;
+
+          if (box.openedBy) {
+            btn.disabled = true;
+            if (Number(box.amount) > 0) {
+              btn.className = `box-card rounded-xl p-2 flex flex-col items-center justify-center min-h-[62px] border text-center ${
+                isMine
+                  ? 'bg-emerald-600 text-white border-emerald-700 ring-2 ring-amber-400 shadow-md'
+                  : 'bg-emerald-50 text-emerald-800 border-emerald-200'
+              }`;
+              btn.innerHTML = `
+                <span class="text-[10px] font-semibold opacity-80">#${box.number}</span>
+                <span class="text-xs font-extrabold leading-tight mt-0.5">${(Number(box.amount) / 1000).toFixed(0)}K</span>
+              `;
+            } else {
+              btn.className = `box-card rounded-xl p-2 flex flex-col items-center justify-center min-h-[62px] border text-center ${
+                isMine
+                  ? 'bg-slate-600 text-white border-slate-700 ring-2 ring-amber-400 shadow-md'
+                  : 'bg-slate-100 text-slate-400 border-slate-200'
+              }`;
+              btn.innerHTML = `
+                <span class="text-[10px] font-semibold opacity-80">#${box.number}</span>
+                <span class="text-[11px] font-bold mt-0.5">ဗလာ</span>
+              `;
+            }
+          } else {
+            btn.disabled = !canUserPick;
+            btn.className = `box-card rounded-xl p-2 flex flex-col items-center justify-center min-h-[62px] border font-bold transition ${
+              canUserPick
+                ? 'bg-gradient-to-br from-[#1877F2] to-blue-600 text-white border-blue-700 cursor-pointer shadow-sm'
+                : 'bg-blue-50 text-blue-400 border-blue-100 cursor-not-allowed opacity-75'
+            }`;
+            btn.innerHTML = `
+              <span class="text-xs sm:text-sm font-extrabold">${box.number}</span>
+              <span class="text-[10px] opacity-80 mt-0.5">🎁</span>
+            `;
+            if (canUserPick) {
+              btn.addEventListener('click', () => openBox(box.number));
+            }
+          }
+          boxesGrid.appendChild(btn);
+        });
+
+        // Render Backup KPIs & Table
+        kpiWonTotal.textContent = formatKs(wonTotal);
+        kpiParticipants.textContent = `${state.logs.length} ဦး`;
+        kpiWinBlank.textContent = `${winCount} / ${blankCount}`;
+
+        if (state.logs.length === 0) {
+          backupTableBody.innerHTML = `
+            <tr>
+              <td colspan="5" class="py-10 px-4 text-center text-slate-400 text-sm">
+                မဲနှိုက်ထားသူ မရှိသေးပါ။
+              </td>
+            </tr>
+          `;
+        } else {
+          backupTableBody.innerHTML = state.logs.map((log, i) => `
+            <tr class="hover:bg-slate-50 transition">
+              <td class="py-3 px-4 text-slate-500 font-medium">${state.logs.length - i}</td>
+              <td class="py-3 px-4 font-semibold text-slate-900">${escapeHtml(log.accountName)}</td>
+              <td class="py-3 px-4">
+                <span class="px-2 py-0.5 rounded-md bg-blue-50 text-[#1877F2] font-semibold text-xs">Box #${log.boxNumber}</span>
+              </td>
+              <td class="py-3 px-4 font-bold ${Number(log.amount) > 0 ? 'text-emerald-600' : 'text-slate-400'}">
+                ${Number(log.amount) > 0 ? formatKs(log.amount) : 'ဗလာ (0 Ks)'}
+              </td>
+              <td class="py-3 px-4 text-xs text-slate-500">${escapeHtml(log.time)}</td>
+            </tr>
+          `).join('');
+        }
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function copyText(text, successMsg) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(() => {
+            showToast(successMsg);
+          }).catch(() => fallbackCopy(text, successMsg));
+        } else {
+          fallbackCopy(text, successMsg);
+        }
+      }
+
+      function fallbackCopy(text, successMsg) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          showToast(successMsg);
+        } catch (e) {
+          showToast('Copy ကူး၍ မရပါ');
+        }
+        document.body.removeChild(ta);
+      }
+
+      // Event Listeners
+      tabDraw.addEventListener('click', () => switchTab('draw'));
+      tabBackup.addEventListener('click', () => switchTab('backup'));
+      loginForm.addEventListener('submit', handleLoginSubmit);
+
+      btnCloseResult.addEventListener('click', () => {
+        resultModal.classList.add('hidden');
+      });
+
+      resultModal.addEventListener('click', (e) => {
+        if (e.target === resultModal) resultModal.classList.add('hidden');
+      });
+
+      btnOpenResetModal.addEventListener('click', () => {
+        resetModal.classList.remove('hidden');
+      });
+
+      btnCancelReset.addEventListener('click', () => {
+        resetModal.classList.add('hidden');
+      });
+
+      btnConfirmReset.addEventListener('click', async () => {
+        syncStatusPill.classList.remove('hidden');
+        try {
+          await fetch(APPS_SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'reset' })
+          });
+          state.deviceLock = null;
+          state.currentUser = null;
+          saveDeviceLock(null);
+          await syncFromSheet();
+          showToast('100,000 Ks ဆုမဲအသစ်များဖြင့် Reset လုပ်ပြီးပါပြီ');
+        } catch (e) {
+          showToast('Sheet Reset လုပ်ရာတွင် အမှားရှိနေပါသည်');
+        } finally {
+          syncStatusPill.classList.add('hidden');
+          resetModal.classList.add('hidden');
+        }
+      });
+
+      btnRefreshData.addEventListener('click', () => {
+        syncFromSheet();
+        showToast('Google Sheet မှ Data အသစ်များ ရယူပြီးပါပြီ');
+      });
+
+      btnCopyBackup.addEventListener('click', () => {
+        if (state.logs.length === 0) {
+          showToast('Copy ကူးရန် Data မရှိသေးပါ');
+          return;
+        }
+        const text = state.logs
+          .map((l, idx) => `${state.logs.length - idx}. ${l.accountName} | Box #${l.boxNumber} | ${Number(l.amount) > 0 ? formatKs(l.amount) : 'ဗလာ (0 Ks)'} | ${l.time}`)
+          .join('\n');
+        copyText(text, 'Data Backup စာရင်းကို Copy ကူးပြီးပါပြီ');
+      });
+
+      btnExportCsv.addEventListener('click', () => {
+        if (state.logs.length === 0) {
+          showToast('Export ထုတ်ရန် Data မရှိသေးပါ');
+          return;
+        }
+        const headers = ['No', 'Facebook Account Name', 'Box Number', 'Amount (Ks)', 'Time'];
+        const rows = state.logs.map((l, idx) => [
+          state.logs.length - idx,
+          `"${String(l.accountName).replace(/"/g, '""')}"`,
+          l.boxNumber,
+          l.amount,
+          `"${l.time}"`
+        ]);
+        const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'fb_lucky_draw_backup.csv';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('CSV ဖိုင် Download ဆွဲပြီးပါပြီ');
+      });
+
+      // Init
+      render();
+      syncFromSheet();
+    })();
+  </script>
+</body>
+</html>
